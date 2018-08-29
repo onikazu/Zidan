@@ -203,7 +203,7 @@ class Zidan(player18.Player18, threading.Thread):
 
 if __name__ == "__main__":
     plays = []
-    for i in range(4):
+    for i in range(22):
         p = Zidan()
         plays.append(p)
         teamname = str(p.__class__.__name__)
@@ -211,7 +211,7 @@ if __name__ == "__main__":
             teamname += "left"
         else:
             teamname += "right"
-        plays[i].initialize((i % 2 + 1), teamname, "localhost", 6000)
+        plays[i].initialize((i % 11 + 1), teamname, "localhost", 6000)
         plays[i].start()
 
 # 離散化させなくてはならない？(6分割**5変数の状態が生み出される)
