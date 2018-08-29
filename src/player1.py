@@ -63,7 +63,7 @@ class Player1(threading.Thread):
         else:
             command = "(init " + self.m_strTeamName + "(version 15.40))"
         self.send(command)
-        with open("{0}_{1}_reward.log".format(self.m_strSide, self.m_iNumber), "w") as the_file:
+        with open("{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "w") as the_file:
             the_file.write("rewards \n")
 
 
