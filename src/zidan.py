@@ -138,7 +138,8 @@ class Zidan(player11.Player11, threading.Thread):
         t = self.m_iTime
         observation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY, self.m_dNeck, self.m_dStamina)
         if self.m_iNumber == 10:
-            print("obsertvation:", observation)
+            if t%30 == 0:
+                print("obsertvation:", observation)
         self.state = self.digitize_state(observation)
         self.reward = 0
         # 報酬の設定
