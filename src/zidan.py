@@ -145,13 +145,15 @@ class Zidan(player18.Player18, threading.Thread):
         # ボールの近くにいれば
         if self.getDistance(self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t]):
             self.reward += 1
+        if self.m_dStamina == 0:
+            self.reward -= 50
         self.episode_reward += self.reward
         self.m_strCommand[self.m_iTime] = self.actions[self.action]
 
 
     def initalize_and_learn(self):
         t = self.m_iTime
-        obserbvation = (self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t], self.m_dNeck[t])
+        obserbvation = (self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t], self.m_dNeck[t], self.m_dStamina)
         self.state = self.digitize_state(obserbvation)
         self.action = np.argmax(self.q_table[self.state])
         # 開始直後でなければ学習
