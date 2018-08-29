@@ -2,6 +2,7 @@ import player7
 import threading
 from socket import *
 import math
+import random
 
 
 class Player8(player7.Player7, threading.Thread):
@@ -221,8 +222,7 @@ class Player8(player7.Player7, threading.Thread):
         result = {"x": 999, "y": 999}
         message = self.getLandMarker(message, playerX, playerY)
 
-        flag = self.getObjectMessage(message, "((g") + \
-               self.getObjectMessage(message, "((f")
+        flag = self.getObjectMessage(message, "((g") + self.getObjectMessage(message, "((f")
         index0 = flag.find("((")
         X = Y = W = S = 0.0
         flags = 0
@@ -236,15 +236,28 @@ class Player8(player7.Player7, threading.Thread):
                 j += 1
                 # if j >= 50:
                 #     print("j", j, "name", name)
-            dist = self.getParam(flag, name, 1)
-            dir = self.getParam(flag, name, 2)
-            rad = math.radians(self.normalizeAngle(dir + neckDir))
-            W = 1 / dist
-            X += W * (self.m_dFlagX[j] - dist * math.cos(rad))
-            Y += W * (self.m_dFlagY[j] - dist * math.sin(rad))
-            S += W
-            flags += 1
-            index0 = flag.find("((", index0 + 2)
+            try:
+                dist = self.getParam(flag, name, 1)
+                dir = self.getParam(flag, name, 2)
+                rad = math.radians(self.normalizeAngle(dir + neckDir))
+                W = 1 / dist
+                X += W * (self.m_dFlagX[j] - dist * math.cos(rad))
+                Y += W * (self.m_dFlagY[j] - dist * math.sin(rad))
+                S += W
+                flags += 1
+                index0 = flag.find("((", index0 + 2)
+                # dist が０になることについて修正
+            except ZeroDivisionError:
+                dist = self.getParam(flag, name, 1)
+                dir = self.getParam(flag, name, 2)
+                rad = math.radians(self.normalizeAngle(dir + neckDir))
+                W = random.random()
+                X += W * (self.m_dFlagX[j] - dist * math.cos(rad))
+                Y += W * (self.m_dFlagY[j] - dist * math.sin(rad))
+                S += W
+                flags += 1
+                index0 = flag.find("((", index0 + 2)
+
 
         if flags > 0:
             result["x"] = X / S
