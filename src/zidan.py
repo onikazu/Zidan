@@ -174,7 +174,7 @@ class Zidan(player18.Player18, threading.Thread):
             np.digitize(dY, bins=self.bins(-34.0, 34.0, self.num_digitized)),  # dY
             np.digitize(dBallX, bins=self.bins(-52.5, 52.5, self.num_digitized)),  # dBallX
             np.digitize(dBallY, bins=self.bins(-34.0, 34.0, self.num_digitized)),  # dBallY
-            np.digitize(dNeck, bins=self.bins(-180.0, 180.0, self.num_digitized))  # dNeck
+            np.digitize(dNeck, bins=self.bins(-180.0, 180.0, self.num_digitized)), # dNeck
             np.digitize(dStamina, bins=self.bins(0.0, 8000.0, self.num_digitized))  # dNeck
         ]
         return sum([x * (self.num_digitized ** i) for i, x in enumerate(digitized)])
