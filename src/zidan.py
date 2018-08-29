@@ -121,8 +121,8 @@ class Zidan(player11.Player11, threading.Thread):
                 the_file.write("{0},{1}\n".format(self.num_this_episode, self.episode_reward))
             self.reset_parameter()
             self.num_this_episode += 1
-            if self.num_this_episode == self.num_episodes-1:
-                np.save("result_table.npy", self.q_table)
+            if self.num_this_episode == 100:
+                np.save("{0}_{1}_result_table.npy".format(self.m_strSide, self.m_iNumber), self.q_table)
                 print("finish!!!")
 
     def reset_parameter(self):
