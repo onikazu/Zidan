@@ -194,7 +194,8 @@ class Zidan(player11.Player11, threading.Thread):
     # [2]行動a(t)を求める関数 -------------------------------------
     def get_action(self, next_state, episode):
         # 徐々に最適行動のみをとる、ε-greedy法
-        epsilon = 0.5 * (1 / (episode + 1))
+        kazu_param = 0.01
+        epsilon = 0.5 * (1 / (episode * kazu_param + 1))
         if epsilon <= np.random.uniform(0, 1):
             next_action = np.argmax(self.q_table[next_state][:])
         else:
