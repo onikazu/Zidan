@@ -37,7 +37,7 @@ class Zidan(player11.Player11, threading.Thread):
         # 学習完了評価に使用する平均試行回数
         self.num_consecutive_iterations = 100
         # この報酬を超えると学習終了（中心への制御なし）
-        self.goal_average_reward = 195
+        self.goal_average_reward = 600
         # Qテーブルの作成
         self.q_table = np.random.uniform(low=-1, high=1, size=(self.num_digitized ** self.situation_num, self.action_num))
         # 各試行の報酬を格納するベクトル（当然初期値は０で長さは評価数分）
@@ -115,7 +115,10 @@ class Zidan(player11.Player11, threading.Thread):
         :return:
         """
         if self.m_iTime%self.max_number_of_steps == 0:
+            if self.total_reward_vec.mean() >= self.goal_average_reward:
+                print("success!!!!!!{0}".format(self.episode_reward))
             print("{0} episode finish".format(self.num_this_episode))
+            total_reward_vec = np.hstack((self.total_reward_vec[1:], self.episode_reward))  # 報酬を記録
             with open("{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
                 the_file.write("{0},{1}\n".format(self.num_this_episode, self.episode_reward))
             self.reset_parameter()
