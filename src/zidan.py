@@ -5,21 +5,21 @@
 
 # catchgame と　train を複合させて作成している
 
-import player11
+import player18
 import threading
 import numpy as np
 
 from collections import deque
 
 
-class Zidan(player11.Player11, threading.Thread):
+class Zidan(player18.Player18, threading.Thread):
     def __init__(self):
         super(Zidan, self).__init__()
-        self.name = "Crespo"
+        self.name = "Zidan"
         # =============for machine learning
         # situation分割数
         self.num_digitized = 6
-        self.situation_num = 5
+        self.situation_num = 6
         # actionについて
         self.action_num = 7
         self.action = 0
@@ -38,7 +38,7 @@ class Zidan(player11.Player11, threading.Thread):
         # この報酬を超えると学習終了（中心への制御なし）
         self.goal_average_reward = 195
         # Qテーブルの作成
-        self.q_table = np.random.uniform(low=-1, high=1, size=(self.num_digitized ** 5, self.action_num))
+        self.q_table = np.random.uniform(low=-1, high=1, size=(self.num_digitized ** self.situation_num, self.action_num))
         # 各試行の報酬を格納するベクトル（当然初期値は０で長さは評価数分）
         self.total_reward_vec = np.zeros(self.num_consecutive_iterations)
 
@@ -117,7 +117,8 @@ class Zidan(player11.Player11, threading.Thread):
             print("{0} episode finish".format(self.num_this_episode))
             self.reset_parameter()
             self.num_this_episode += 1
-            if self.num_this_episode == self.num_episodes:
+            if self.num_this_episode == self.num_episodes-1:
+                np.save("./result/result_table.npy", self.q_table)
                 print("finish!!!")
 
     def reset_parameter(self):
@@ -130,7 +131,8 @@ class Zidan(player11.Player11, threading.Thread):
 
     def learn_and_play(self):
         # a_t実行によるs_t+1
-        observation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY, self.m_dNeck)
+        t = self.m_iTime
+        observation = (self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t], self.m_dNeck[t], self.m_dStamina[t])
         self.state = self.digitize_state(observation)
         self.reward = 0
         # 報酬の設定

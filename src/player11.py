@@ -8,7 +8,7 @@ import math
 class Player11(player10.Player10, threading.Thread):
     def __init__(self):
         super(Player11, self).__init__()
-        self.GAME_LENGTH = 6000
+        self.GAME_LENGTH = 30000000
         self.m_strServerParam = ""
         self.m_strPlayerParam = ""
         self.m_strPlayerType = []
