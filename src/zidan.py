@@ -143,14 +143,15 @@ class Zidan(player18.Player18, threading.Thread):
         if self.m_strPlayMode == "(goal_l)":
             self.reward += 100
         # ボールの近くにいれば
-        if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY):
+        if self.getDistance(self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t]):
             self.reward += 1
         self.episode_reward += self.reward
         self.m_strCommand[self.m_iTime] = self.actions[self.action]
 
 
     def initalize_and_learn(self):
-        obserbvation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY, self.m_dNeck)
+        t = self.m_iTime
+        obserbvation = (self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t], self.m_dNeck[t])
         self.state = self.digitize_state(obserbvation)
         self.action = np.argmax(self.q_table[self.state])
         # 開始直後でなければ学習
@@ -159,8 +160,6 @@ class Zidan(player18.Player18, threading.Thread):
             self.q_table = self.update_Qtable(self.q_table, self.state, self.action, self.reward, self.next_state)
             self.action = self.get_action(self.next_state, self.num_this_episode)
             self.state = self.next_state
-
-
 
     # [1]Q関数を離散化して定義する関数　------------
     # 観測した状態を離散値にデジタル変換する
