@@ -8,18 +8,16 @@ import math
 class Player11(player10.Player10, threading.Thread):
     def __init__(self):
         super(Player11, self).__init__()
-        self.GAME_LENGTH = 30000
+        self.GAME_LENGTH = 6000
         self.m_strServerParam = ""
         self.m_strPlayerParam = ""
         self.m_strPlayerType = []
         for _ in range(20):
             self.m_strPlayerType.append("")
         self.m_iPlayerType = 0
-        self.m_strCommand = []
-        for _ in range(self.GAME_LENGTH):
-            self.m_strCommand.append("")
         self.m_iTime = -1
         self.m_iVisualTime = -1
+        self.m_dStamina = 8000
         self.m_debugLv11 = False
 
     def analyzeServerParam(self, message):
@@ -41,28 +39,15 @@ class Player11(player10.Player10, threading.Thread):
 
     def analyzePhysicalMessage(self, message):
         self.m_iTime = int(self.getParam(message, "sense_body", 1))
-
-    def predictMoveCommand(self, i):
-        return
-
-    def predictDashCommand(self, i):
-        return
-
-    def predictTurnCommand(self, i):
-        return
-
-    def predictKickCommand(self, i):
-        return
+        # スタミナ情報の解析
+        st = message.split(" ")
+        for i in len(st):
+            if st[i] == ")(stamina":
+                self.m_dStamina = int(st[i+1])
 
     def predict(self, start, end):
         if self.m_iVisualTime < 0:
             return
-        for i in range(start, end):
-            self.predictMoveCommand(i)
-            self.predictDashCommand(i)
-            self.predictTurnCommand(i)
-            self.predictKickCommand(i)
-
         if self.m_debugLv11 and self.m_iTime > 0 and self.m_iTime < 20:
             print()
             print("時刻　体調情報", self.m_iTime)

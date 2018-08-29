@@ -5,17 +5,18 @@
 
 # catchgame と　train を複合させて作成している
 
-import player18
+import player11
 import threading
 import numpy as np
 
 from collections import deque
 
 
-class Zidan(player18.Player18, threading.Thread):
+class Zidan(player11.Player11, threading.Thread):
     def __init__(self):
         super(Zidan, self).__init__()
         self.name = "Zidan"
+        self.m_strCommand = ""
         # =============for machine learning
         # situation分割数
         self.num_digitized = 6
@@ -27,6 +28,7 @@ class Zidan(player18.Player18, threading.Thread):
         # reward(エピソードごと、ステップごと)
         self.episode_reward = 0
         self.reward = 0
+
 
         # 1試行のstep数
         self.max_number_of_steps = 300
@@ -71,7 +73,7 @@ class Zidan(player18.Player18, threading.Thread):
                 self.predict(self.m_iVisualTime, self.m_iTime)
             self.initalize_and_learn()
             self.play_0()
-            self.send(self.m_strCommand[self.m_iTime])
+            self.send(self.m_strCommand)
         # 聴覚メッセージの処理
         elif message.startswith("(hear "):
             self.analyzeAuralMessage(message)
@@ -88,7 +90,7 @@ class Zidan(player18.Player18, threading.Thread):
         # エラーの処理
         else:
             print("p11 サーバーからエラーが伝えられた:", message)
-            print("p11 エラー発生原因のコマンドは右記の通り :", self.m_strCommand[self.m_iTime])
+            print("p11 エラー発生原因のコマンドは右記の通り :", self.m_strCommand)
 
     # 実行
     def play_0(self):
@@ -101,7 +103,7 @@ class Zidan(player18.Player18, threading.Thread):
                 self.setKickOffPosition()
                 command = \
                     "(move " + str(self.m_dKickOffX) + " " + str(self.m_dKickOffY) + ")"
-                self.m_strCommand[self.m_iTime] = command
+                self.m_strCommand = command
         else:
             self.check_episode_end()
             # (コマンド生成)===================
@@ -132,7 +134,7 @@ class Zidan(player18.Player18, threading.Thread):
     def learn_and_play(self):
         # a_t実行によるs_t+1
         t = self.m_iTime
-        observation = (self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t], self.m_dNeck[t], self.m_dStamina[t])
+        observation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY, self.m_dNeck, self.m_dStamina)
         self.state = self.digitize_state(observation)
         self.reward = 0
         # 報酬の設定
@@ -143,17 +145,17 @@ class Zidan(player18.Player18, threading.Thread):
         if self.m_strPlayMode == "(goal_l)":
             self.reward += 100
         # ボールの近くにいれば
-        if self.getDistance(self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t]):
+        if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY):
             self.reward += 1
         if self.m_dStamina == 0:
             self.reward -= 50
         self.episode_reward += self.reward
-        self.m_strCommand[self.m_iTime] = self.actions[self.action]
+        self.m_strCommand = self.actions[self.action]
 
 
     def initalize_and_learn(self):
         t = self.m_iTime
-        obserbvation = (self.m_dX[t], self.m_dY[t], self.m_dBallX[t], self.m_dBallY[t], self.m_dNeck[t], self.m_dStamina)
+        obserbvation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY, self.m_dNeck, self.m_dStamina)
         self.state = self.digitize_state(obserbvation)
         self.action = np.argmax(self.q_table[self.state])
         # 開始直後でなければ学習
@@ -177,7 +179,7 @@ class Zidan(player18.Player18, threading.Thread):
             np.digitize(dBallX, bins=self.bins(-52.5, 52.5, self.num_digitized)),  # dBallX
             np.digitize(dBallY, bins=self.bins(-34.0, 34.0, self.num_digitized)),  # dBallY
             np.digitize(dNeck, bins=self.bins(-180.0, 180.0, self.num_digitized)), # dNeck
-            np.digitize(dStamina, bins=self.bins(0.0, 8000.0, self.num_digitized))  # dNeck
+            np.digitize(dStamina, bins=self.bins(0.0, 8000.0, self.num_digitized))  # dStamina
         ]
         return sum([x * (self.num_digitized ** i) for i, x in enumerate(digitized)])
 
