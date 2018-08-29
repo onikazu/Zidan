@@ -168,13 +168,14 @@ class Zidan(player18.Player18, threading.Thread):
 
     # 各値を離散値に変換
     def digitize_state(self, observation):
-        dX, dY, dBallX, dBallY, dNeck = observation
+        dX, dY, dBallX, dBallY, dNeck, dStamina = observation
         digitized = [
             np.digitize(dX, bins=self.bins(-52.5, 52.5, self.num_digitized)),  # dX
             np.digitize(dY, bins=self.bins(-34.0, 34.0, self.num_digitized)),  # dY
             np.digitize(dBallX, bins=self.bins(-52.5, 52.5, self.num_digitized)),  # dBallX
             np.digitize(dBallY, bins=self.bins(-34.0, 34.0, self.num_digitized)),  # dBallY
             np.digitize(dNeck, bins=self.bins(-180.0, 180.0, self.num_digitized))  # dNeck
+            np.digitize(dStamina, bins=self.bins(0.0, 8000.0, self.num_digitized))  # dNeck
         ]
         return sum([x * (self.num_digitized ** i) for i, x in enumerate(digitized)])
 
