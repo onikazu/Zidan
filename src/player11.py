@@ -40,7 +40,7 @@ class Player11(player10.Player10, threading.Thread):
         st = message.split(" ")
         for i in range(len(st)):
             if st[i] == "(stamina":
-                self.m_dStamina = int(st[i+1])
+                self.m_dStamina = float(st[i+1])
 
     def predict(self, start, end):
         if self.m_iVisualTime < 0:
