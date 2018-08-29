@@ -177,6 +177,7 @@ class Zidan(player11.Player11, threading.Thread):
     # 各値を離散値に変換
     def digitize_state(self, observation):
         dX, dY, dBallX, dBallY, dNeck, dStamina = observation
+        # 観測値がどのひだりからかぞえてどのビンに相当するかarrayを返す
         digitized = [
             np.digitize(dX, bins=self.bins(-52.5, 52.5, self.num_digitized)),  # dX
             np.digitize(dY, bins=self.bins(-34.0, 34.0, self.num_digitized)),  # dY
@@ -185,6 +186,9 @@ class Zidan(player11.Player11, threading.Thread):
             np.digitize(dNeck, bins=self.bins(-180.0, 180.0, self.num_digitized)), # dNeck
             np.digitize(dStamina, bins=self.bins(0.0, 8000.0, self.num_digitized))  # dStamina
         ]
+
+        # リスト内包表記
+        # enumerateはインデックスと要素を返す
         return sum([x * (self.num_digitized ** i) for i, x in enumerate(digitized)])
 
     # [2]行動a(t)を求める関数 -------------------------------------
@@ -192,7 +196,7 @@ class Zidan(player11.Player11, threading.Thread):
         # 徐々に最適行動のみをとる、ε-greedy法
         epsilon = 0.5 * (1 / (episode + 1))
         if epsilon <= np.random.uniform(0, 1):
-            next_action = np.argmax(self.q_table[next_state])
+            next_action = np.argmax(self.q_table[next_state][:])
         else:
             # action数は7個
             next_action = np.random.choice([0, 1, 2, 3, 4, 5, 6])
@@ -202,8 +206,7 @@ class Zidan(player11.Player11, threading.Thread):
     def update_Qtable(self, q_table, state, action, reward, next_state):
         gamma = 0.99
         alpha = 0.5
-        next_Max_Q = max(q_table[next_state][0], q_table[next_state][1], q_table[next_state][2], q_table[next_state][3],
-                         q_table[next_state][4], q_table[next_state][5], q_table[next_state][6])
+        next_Max_Q = max(q_table[next_state][:])
         q_table[state, action] = (1 - alpha) * q_table[state, action] + \
                                  alpha * (reward + gamma * next_Max_Q)
         return q_table
