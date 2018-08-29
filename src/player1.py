@@ -64,7 +64,7 @@ class Player1(threading.Thread):
             command = "(init " + self.m_strTeamName + "(version 15.40))"
         self.send(command)
         with open("{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "w") as the_file:
-            the_file.write("rewards \n")
+            the_file.write("")
 
 
     # thread を動かしている最中に行われる関数
