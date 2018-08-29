@@ -23,9 +23,9 @@ class Zidan(player11.Player11, threading.Thread):
         self.num_digitized = 6
         self.situation_num = 6
         # actionについて
-        self.action_num = 7
         self.action = 0
-        self.actions = ("(turn 0)", "(turn 60)", "(turn -60)", "(dash 100)", "(dash -100)", "(kick 100 0)", "(kick 50 0)")
+        self.actions = ("(turn 0)", "(turn 60)", "(turn -60)", "(dash 100)", "(kick 100 0)", "(kick 50 0)")
+        self.action_num = len(self.actions)
         # reward(エピソードごと、ステップごと)
         self.episode_reward = 0
         self.reward = 0
@@ -199,7 +199,7 @@ class Zidan(player11.Player11, threading.Thread):
             next_action = np.argmax(self.q_table[next_state][:])
         else:
             # action数は7個
-            next_action = np.random.choice([0, 1, 2, 3, 4, 5, 6])
+            next_action = np.random.choice([i for i in range(self.action_num)])
         return next_action
 
     # [3]Qテーブルを更新する関数 -------------------------------------
