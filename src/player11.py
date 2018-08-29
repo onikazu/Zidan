@@ -38,9 +38,9 @@ class Player11(player10.Player10, threading.Thread):
         self.m_iTime = int(self.getParam(message, "sense_body", 1))
         # スタミナ情報の解析
         st = message.split(" ")
-        print(st)
-        if st[i] == "(stamina":
-            self.m_dStamina = int(st[i+1])
+        for i in range(len(st)):
+            if st[i] == "(stamina":
+                self.m_dStamina = int(st[i+1])
 
     def predict(self, start, end):
         if self.m_iVisualTime < 0:
@@ -49,16 +49,6 @@ class Player11(player10.Player10, threading.Thread):
             print()
             print("時刻　体調情報", self.m_iTime)
             print("視覚情報＝", self.m_iVisualTime)
-
-    def play_0(self):
-        self.m_strCommand[self.m_iTime] = "(turn 0)"
-        # 教科書誤植？
-        if self.checkInitialMode():
-            if self.checkInitialMode():
-                self.setKickOffPosition()
-                command = \
-                    "(move " + str(self.m_dKickOffX) + " " + str(self.m_dKickOffY) + ")"
-                self.m_strCommand[self.m_iTime] = command
 
     def analyzeMessage(self, message):
         # 初期メッセージの処理
