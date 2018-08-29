@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-df = pd.read_csv("./log/reward.log")
+df = pd.read_csv("reward.log")
 x = df.columns[0]
 y = df.columns[1]
 ax = df.plot(kind='scatter', x=x, y=y)
