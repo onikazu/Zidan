@@ -39,9 +39,8 @@ class Player11(player10.Player10, threading.Thread):
         # スタミナ情報の解析
         st = message.split(" ")
         print(st)
-        for i in range(len(st)):
-            if st[i] == ")(stamina":
-                self.m_dStamina = int(st[i+1])
+        if st[i] == "(stamina":
+            self.m_dStamina = int(st[i+1])
 
     def predict(self, start, end):
         if self.m_iVisualTime < 0:
