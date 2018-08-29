@@ -17,7 +17,8 @@ class Zidan(player11.Player11, threading.Thread):
         super(Zidan, self).__init__()
         self.name = "Zidan"
         self.m_strCommand = ""
-        # =============for machine learning
+
+        # =============for reinforcement learning=================
         # situation分割数
         self.num_digitized = 6
         self.situation_num = 6
@@ -28,8 +29,6 @@ class Zidan(player11.Player11, threading.Thread):
         # reward(エピソードごと、ステップごと)
         self.episode_reward = 0
         self.reward = 0
-
-
         # 1試行のstep数
         self.max_number_of_steps = 300
         # 総試行回数
@@ -164,7 +163,7 @@ class Zidan(player11.Player11, threading.Thread):
         self.state = self.digitize_state(obserbvation)
         self.action = np.argmax(self.q_table[self.state])
         # 開始直後でなければ学習
-        if self.m_iTime != 0:
+        if self.m_iTime%300 != 0:
             self.next_state = self.digitize_state(obserbvation)
             self.q_table = self.update_Qtable(self.q_table, self.state, self.action, self.reward, self.next_state)
             self.action = self.get_action(self.next_state, self.num_this_episode)
