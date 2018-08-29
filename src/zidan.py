@@ -154,6 +154,11 @@ class Zidan(player11.Player11, threading.Thread):
         # ボールの近くにいれば
         if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY):
             self.reward += 1
+        # スタミナをできるだけ高水準に保たせる
+        if self.m_dStamina < 7000:
+            self.reward -= 1
+        if self.m_dStamina < 5000:
+            self.reward -= 3
         if self.m_dStamina == 0:
             self.reward -= 50
         self.episode_reward += self.reward
