@@ -41,7 +41,7 @@ class Player11(player10.Player10, threading.Thread):
         self.m_iTime = int(self.getParam(message, "sense_body", 1))
         # スタミナ情報の解析
         st = message.split(" ")
-        for i in len(st):
+        for i in range(len(st)):
             if st[i] == ")(stamina":
                 self.m_dStamina = int(st[i+1])
 
