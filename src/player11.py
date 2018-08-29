@@ -34,9 +34,6 @@ class Player11(player10.Player10, threading.Thread):
         # print("id: ", id)
         self.m_strPlayerType[id] = message
 
-    def analyzeVisualMessage(self, message):
-        self.m_iVisualTime = int(self.getParam(message, "see", 1))
-
     def analyzePhysicalMessage(self, message):
         self.m_iTime = int(self.getParam(message, "sense_body", 1))
         # スタミナ情報の解析
