@@ -63,6 +63,9 @@ class Player1(threading.Thread):
         else:
             command = "(init " + self.m_strTeamName + "(version 15.40))"
         self.send(command)
+        with open("./log/{0}_{1}_reward.log".format(self.m_strSide, self.m_iNumber), "w") as the_file:
+            the_file.write("rewards \n")
+
 
     # thread を動かしている最中に行われる関数
     def run(self):

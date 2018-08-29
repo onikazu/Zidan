@@ -117,6 +117,8 @@ class Zidan(player11.Player11, threading.Thread):
         """
         if self.m_iTime%self.max_number_of_steps == 0:
             print("{0} episode finish".format(self.num_this_episode))
+            with open("./log/{0}_{1}_reward.log".format(self.m_strSide, self.m_iNumber), "a") as the_file:
+                the_file.write("{0},{1}\n".format(self.num_this_episode, self.episode_reward))
             self.reset_parameter()
             self.num_this_episode += 1
             if self.num_this_episode == self.num_episodes-1:
