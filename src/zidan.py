@@ -186,8 +186,8 @@ class Zidan(player18.Player18, threading.Thread):
         if epsilon <= np.random.uniform(0, 1):
             next_action = np.argmax(self.q_table[next_state])
         else:
-            # action数は6個
-            next_action = np.random.choice([0, 1, 2, 3, 4, 5])
+            # action数は7個
+            next_action = np.random.choice([0, 1, 2, 3, 4, 5, 6])
         return next_action
 
     # [3]Qテーブルを更新する関数 -------------------------------------
@@ -203,7 +203,7 @@ class Zidan(player18.Player18, threading.Thread):
 
 if __name__ == "__main__":
     plays = []
-    for i in range(22):
+    for i in range(1):
         p = Zidan()
         plays.append(p)
         teamname = str(p.__class__.__name__)
