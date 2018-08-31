@@ -39,6 +39,8 @@ if __name__ == "__main__":
 
         # サーバの削除
         server.kill()
+        # ウィンドウの削除
+        window.kill()
         # クライアントの削除
         cliant.kill()
 
