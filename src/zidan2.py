@@ -19,6 +19,11 @@ class Zidan2(player11.Player11, threading.Thread):
         self.name = "Zidan"
         self.m_strCommand = ""
 
+        # =============command log ===============
+        self.kick_num = 0
+        self.turn_num = 0
+        self.dash_num = 0
+
         # =============for reinforcement learning=================
         # situation分割数
         self.num_digitized = 6
@@ -123,29 +128,21 @@ class Zidan2(player11.Player11, threading.Thread):
         :return:
         """
 
-        # stepが規定step に達したか？
+        # stepが規定step(600step) に達したか？
         if self.m_iTime % self.max_number_of_steps == 0 and self.m_iTime != 0:
             print("{}episode finished".format(self.num_this_episode))
             self.total_reward_vec = np.hstack((self.total_reward_vec[1:], self.episode_reward))  # 報酬を記録
             # ログの保存
             with open("./logs/{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
                 the_file.write("{0},{1}\n".format(self.num_this_episode, self.episode_reward))
-            # self.reset_parameter()
-            # self.num_this_episode += 1
-            # if self.num_this_episode == 100:
+
+            # コマンドログの保存
+            with open("./logs/{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
+                the_file.write("{0},{1},{2},{3}\n".format(self.num_this_episode, self.kick_num, self.turn_num, self.dash_num))
+
             # Qtable の保存
             np.save("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber), self.q_table)
             time.sleep(100)
-            # フラグ
-            # global episode_finish_flag
-            # episode_finish_flag = True
-
-    def reset_parameter(self):
-        """
-        報酬の初期化
-        :return:
-        """
-        self.episode_reward = 0
 
     def learn_and_play(self):
         # a_t実行によるs_t+1
@@ -179,6 +176,10 @@ class Zidan2(player11.Player11, threading.Thread):
 
         self.episode_reward += self.reward
         self.m_strCommand = self.actions[self.action]
+        if self.m_strCommand.startswith("(turn"):
+            self.turn_num += 1
+            self.dash_num += 1
+            self.kick_num += 1
 
     def initalize_and_learn(self):
         t = self.m_iTime
