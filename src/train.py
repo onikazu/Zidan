@@ -20,9 +20,9 @@ if __name__ == "__main__":
             "rcssserver server::half_time = -1 server::send_step = 3 server::sense_body_step = 2 server::simulator_step = 2 server::kick_off_wait = 0"
         server = subprocess.Popen(cmd.split())
 
-        # モニタの起動
-        cmd = "soccerwindow2"
-        window = subprocess.Popen(cmd.split())
+        # # モニタの起動
+        # cmd = "soccerwindow2"
+        # window = subprocess.Popen(cmd.split())
 
         # ディレクトリの移動
         os.chdir("./Zidan/src")
@@ -39,8 +39,8 @@ if __name__ == "__main__":
 
         # サーバの削除
         server.kill()
-        # ウィンドウの削除
-        window.kill()
+        # # ウィンドウの削除
+        # window.kill()
         # クライアントの削除
         cliant.kill()
 
