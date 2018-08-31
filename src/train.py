@@ -8,6 +8,7 @@ episodes = 100000
 
 if __name__ == "__main__":
     start_episode = 0
+    # ログが残っていればその続きのエピソードとして学習を開始する。
     if os.path.isfile("./logs/Zidan2left_1_reward.log"):
         with open("./logs/Zidan2left_1_reward.log", "r") as file:
             lines = file.readlines()
