@@ -25,7 +25,7 @@ class Zidan2(player11.Player11, threading.Thread):
         self.situation_num = 6
         # actionについて
         self.action = 0
-        self.actions = ("(turn 0)", "(turn 60)", "(turn -60)", "(dash 100)", "(kick 100 0)", "(kick 50 0)")
+        self.actions = ("(turn 60)", "(turn -60)", "(dash 100)", "(dash 50)", "(kick 100 0)", "(kick 50 0)")
         self.action_num = len(self.actions)
         # reward(エピソードごと、ステップごと)
         self.episode_reward = 0
