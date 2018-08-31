@@ -31,7 +31,7 @@ class Zidan2(player11.Player11, threading.Thread):
         self.episode_reward = 0
         self.reward = 0
         # 1試行のstep数
-        self.max_number_of_steps = 300
+        self.max_number_of_steps = 3000
         # 総試行回数
         # self.num_episodes = 100000
         self.num_this_episode = int(sys.argv[1])
