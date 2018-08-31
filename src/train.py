@@ -16,7 +16,7 @@ if __name__ == "__main__":
             start_episode = last_episode
 
     print("start")
-    for episode in range(start_episode, episodes):
+    for episode in range(int(start_episode), episodes):
 
         # ディレクトリの移動
         os.chdir("../")
