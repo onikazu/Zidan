@@ -15,7 +15,8 @@ if __name__ == "__main__":
         os.chdir("../")
 
         # サーバの起動
-        cmd = "rcssserver"
+        cmd = \
+            "rcssserver server::synch_mode = true server::auto_mode = true server::kick_off_wait = 0"
         server = subprocess.Popen(cmd.split())
 
         # ディレクトリの移動
