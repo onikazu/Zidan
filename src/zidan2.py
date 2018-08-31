@@ -163,7 +163,7 @@ class Zidan2(player11.Player11, threading.Thread):
                 self.reward += 1000
             # キックできれば
             if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY) <= 0.7 and \
-                    self.m_strCommand.startwith("(kick"):
+                    self.m_strCommand.startswith("(kick"):
                 self.reward += 1
 
         # 左チーム
@@ -173,7 +173,7 @@ class Zidan2(player11.Player11, threading.Thread):
                 self.reward += 1000
             # キックできれば
             if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY) <= 0.7 and \
-                    self.m_strCommand.startwith("(kick"):
+                    self.m_strCommand.startswith("(kick"):
                 self.reward += 1
 
         # # ボールが敵陣にあれば
