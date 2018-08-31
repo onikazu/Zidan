@@ -178,7 +178,9 @@ class Zidan2(player11.Player11, threading.Thread):
         self.m_strCommand = self.actions[self.action]
         if self.m_strCommand.startswith("(turn"):
             self.turn_num += 1
+        if self.m_strCommand.startswith("(dash"):
             self.dash_num += 1
+        if self.m_strCommand.startswith("(kick"):
             self.kick_num += 1
 
     def initalize_and_learn(self):
