@@ -5,7 +5,7 @@ import subprocess
 episodes = 100000
 host = "localhost"
 
-cmd = "rcssserver"
+cmd = "cd | rcssserver"
 
 print("start")
 subprocess.call(cmd)
