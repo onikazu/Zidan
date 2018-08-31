@@ -41,7 +41,7 @@ if __name__ == "__main__":
         # while True:
         #     if zidan2.episode_finish_flag is True:
         #         break
-        time.sleep(6.7)
+        time.sleep(8)
 
 
         print("episode{} is done ".format(episode))
