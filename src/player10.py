@@ -86,6 +86,9 @@ class Player10(player9.Player9, threading.Thread):
                 print("command from list", command)
                 print("listcommand", self.m_listCommand)
                 self.send(command)
+        # think 処理
+        elif message.startswith("(think"):
+            self.send("(done)")
 
 
 if __name__ == "__main__":
