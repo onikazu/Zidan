@@ -88,9 +88,9 @@ class Zidan2(player11.Player11, threading.Thread):
         elif message.startswith("(player_param"):
             self.analyzePlayerParam(message)
         # プレーヤータイプの処理
-        elif message.startswith("(player_type"):
-            self.analyzePlayerType(message)
-            # print("player_type_message", message)
+        # elif message.startswith("(player_type"):
+        #     self.analyzePlayerType(message)
+        #     # print("player_type_message", message)
         # think 処理
         elif message.startswith("(think"):
             self.send("(done)")

@@ -83,8 +83,8 @@ class Zidan(player11.Player11, threading.Thread):
         elif message.startswith("(player_param"):
             self.analyzePlayerParam(message)
         # プレーヤータイプの処理
-        elif message.startswith("(player_type"):
-            self.analyzePlayerType(message)
+        # elif message.startswith("(player_type"):
+        #     self.analyzePlayerType(message)
             # print("player_type_message", message)
         # エラーの処理
         else:
