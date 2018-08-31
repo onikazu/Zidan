@@ -122,7 +122,7 @@ class Zidan2(player11.Player11, threading.Thread):
         :return:
         """
 
-        # 実行スクリプトでやらなきやいけないこと
+        # stepが規定step に達したか？
         if self.m_iTime % self.max_number_of_steps == 0:
             print("{}episode finished".format(self.num_this_episode))
             self.total_reward_vec = np.hstack((self.total_reward_vec[1:], self.episode_reward))  # 報酬を記録
@@ -134,7 +134,7 @@ class Zidan2(player11.Player11, threading.Thread):
             # if self.num_this_episode == 100:
             # Qtable の保存
             np.save("{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber), self.q_table)
-            print("episode finish!!!")
+            # フラグ
             global episode_finish_flag
             episode_finish_flag = True
 
