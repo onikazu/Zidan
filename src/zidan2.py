@@ -124,7 +124,7 @@ class Zidan2(player11.Player11, threading.Thread):
         """
 
         # stepが規定step に達したか？
-        if self.m_iTime % self.max_number_of_steps == 0:
+        if self.m_iTime % self.max_number_of_steps == 0 and self.m_iTime != 0:
             print("{}episode finished".format(self.num_this_episode))
             self.total_reward_vec = np.hstack((self.total_reward_vec[1:], self.episode_reward))  # 報酬を記録
             # ログの保存
