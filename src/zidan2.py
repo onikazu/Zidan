@@ -33,7 +33,7 @@ class Zidan2(player11.Player11, threading.Thread):
         self.max_number_of_steps = 300
         # 総試行回数
         # self.num_episodes = 100000
-        self.num_this_episode = sys.argv[1]
+        self.num_this_episode = int(sys.argv[1])
         # 学習完了評価に使用する平均試行回数
         self.num_consecutive_iterations = 100
         # この報酬を超えると学習終了（中心への制御なし）
