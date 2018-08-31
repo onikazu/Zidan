@@ -8,7 +8,7 @@ host = "localhost"
 cmd = "cd | rcssserver"
 
 print("start")
-subprocess.call(cmd)
+subprocess.call(cmd.split())
 print("end")
 
 # for episode in range(episodes):
