@@ -26,6 +26,13 @@ if __name__ == "__main__":
 
         # ディレクトリの移動
         os.chdir("./Zidan/src")
+
+        if not os.path.isdir("./numpy"):
+            os.mkdir("./numpy")
+
+        if not os.path.isdir("./logs"):
+            os.mkdir("./logs")
+
         # クライアントプログラムの実行
         cmd = "python3 zidan2.py {}".format(episode)
         cliant = subprocess.Popen(cmd.split())

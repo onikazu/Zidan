@@ -65,7 +65,6 @@ class Player1(threading.Thread):
             command = "(init " + self.m_strTeamName + "(version 15.40))"
         self.send(command)
         if not os.path.isfile("./logs/{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber)):
-            os.mkdir("./logs")
             with open("./logs/{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "w") as the_file:
                 the_file.write("")
         else:
