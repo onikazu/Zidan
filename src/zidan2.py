@@ -43,8 +43,10 @@ class Zidan2(player11.Player11, threading.Thread):
         # 初期のエピソードでなければ引き継ぎ行う
         self.q_table = np.random.uniform(low=-1, high=1,
                                          size=(self.num_digitized ** self.situation_num, self.action_num))
-        if os.path.isfile("{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber)):
-            self.q_table = np.load("{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber))
+        if os.path.isfile("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber)):
+            self.q_table = np.load("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber))
+        else:
+            os.mkdir("./npy")
         # 各試行の報酬を格納するベクトル（当然初期値は０で長さは評価数分）
         self.total_reward_vec = np.zeros(self.num_consecutive_iterations)
 
@@ -128,13 +130,13 @@ class Zidan2(player11.Player11, threading.Thread):
             print("{}episode finished".format(self.num_this_episode))
             self.total_reward_vec = np.hstack((self.total_reward_vec[1:], self.episode_reward))  # 報酬を記録
             # ログの保存
-            with open("{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
+            with open("./logs/{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
                 the_file.write("{0},{1}\n".format(self.num_this_episode, self.episode_reward))
             # self.reset_parameter()
             # self.num_this_episode += 1
             # if self.num_this_episode == 100:
             # Qtable の保存
-            np.save("{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber), self.q_table)
+            np.save("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber), self.q_table)
             time.sleep(100)
             # フラグ
             # global episode_finish_flag
