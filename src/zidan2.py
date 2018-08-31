@@ -10,7 +10,6 @@ import os
 
 from collections import deque
 
-
 class Zidan2(player11.Player11, threading.Thread):
     def __init__(self):
         super(Zidan2, self).__init__()
@@ -120,12 +119,11 @@ class Zidan2(player11.Player11, threading.Thread):
 
         # 実行スクリプトでやらなきやいけないこと
         if self.m_iTime % self.max_number_of_steps == 0:
-            # if self.total_reward_vec.mean() >= self.goal_average_reward:
-            #    print("success!!!!!!{0}".format(self.episode_reward))
-            # print("{0} episode finish".format(self.num_this_episode))
+            print("{}episode finished".format(self.num_this_episode))
             self.total_reward_vec = np.hstack((self.total_reward_vec[1:], self.episode_reward))  # 報酬を記録
-            # with open("{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
-            #     the_file.write("{0},{1}\n".format(self.num_this_episode, self.episode_reward))
+            # ログの保存
+            with open("{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
+                the_file.write("{0},{1}\n".format(self.num_this_episode, self.episode_reward))
             # self.reset_parameter()
             # self.num_this_episode += 1
             # if self.num_this_episode == 100:

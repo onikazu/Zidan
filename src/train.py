@@ -1,33 +1,37 @@
-import telnetlib
 import subprocess
+import os
+import time
 
 
 episodes = 100000
-host = "localhost"
 
-cmd = "ls"
+if __name__ == "__main__":
 
-print("start")
-subprocess.call(cmd.split())
-print("end")
+    print("start")
+    for episode in range(episodes):
 
-# for episode in range(episodes):
-#     # <サーバーを開く>
-#     # 新たにターミナル1を立ち上げる
-#
-#     # 「rcssserver」と入力する
-#
-#     # <クライアントを登録する>
-#     # 新たにターミナル2を立ち上げる
-#
-#     # 「cd Zidan/src/ | python3 zidan2.py」と入力する
-#
-#     # <学習>
-#
-#     # <ターミナルを削除する>
-#
-#
-#     # サーバーを閉じる
-#     tn = telnetlib.Telnet(host, 23, 5)
-#     print("session runs")
-#     tn.write('\x03')
+        # ディレクトリの移動
+        os.chdir("../")
+        os.chdir("../")
+
+        # サーバの起動
+        cmd = "rcssserver"
+        server = subprocess.Popen(cmd.split())
+
+        cmd = "soccerwindow2"
+        window = subprocess.Popen(cmd.split())
+
+        # ディレクトリの移動
+        os.chdir("./Zidan/src")
+        # クライアントプログラムの実行
+        cmd = "python3 zidan2.py {}".format(episode)
+        cliant = subprocess.Popen(cmd.split())
+
+        time.sleep(10)
+
+        # サーバの削除
+        server.kill()
+        # クライアントの削除
+        cliant.kill()
+
+    print("end")
