@@ -18,9 +18,6 @@ if __name__ == "__main__":
         cmd = "rcssserver"
         server = subprocess.Popen(cmd.split())
 
-        cmd = "soccerwindow2"
-        window = subprocess.Popen(cmd.split())
-
         # ディレクトリの移動
         os.chdir("./Zidan/src")
         # クライアントプログラムの実行
@@ -28,6 +25,8 @@ if __name__ == "__main__":
         cliant = subprocess.Popen(cmd.split())
 
         time.sleep(10)
+
+        print("episode{} is done ".format(episode))
 
         # サーバの削除
         server.kill()
