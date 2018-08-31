@@ -12,7 +12,7 @@ if __name__ == "__main__":
     if os.path.isfile("./logs/Zidan2left_1_reward.log"):
         with open("./logs/Zidan2left_1_reward.log", "r") as file:
             lines = file.readlines()
-            last_episode = lines[-1].split()[0]
+            last_episode = lines[-1].split(",")[0]
             start_episode = last_episode
 
     print("start")

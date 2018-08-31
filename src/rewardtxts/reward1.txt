@@ -1,0 +1,19 @@
+# 報酬の設定(右チーム)
+        if self.m_strSide.startswith("r"):
+            # ゴールすれば
+            if self.m_strPlayMode == "(goal_r)":
+                self.reward += 1000
+            # キックできれば
+            if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY) <= 0.7 and \
+                    self.m_strCommand.startswith("(kick"):
+                self.reward += 1
+
+        # 左チーム
+        if self.m_strSide.startswith("l"):
+            # ゴールすれば
+            if self.m_strPlayMode == "(goal_l)":
+                self.reward += 1000
+            # キックできれば
+            if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY) <= 0.7 and \
+                    self.m_strCommand.startswith("(kick"):
+                self.reward += 1

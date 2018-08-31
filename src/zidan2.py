@@ -156,42 +156,27 @@ class Zidan2(player11.Player11, threading.Thread):
                 print("obsertvation:", observation)
         self.state = self.digitize_state(observation)
         self.reward = 0
-        # 報酬の設定(右チーム)
+
+        # (報酬の設定)==================================================-
+        # 右チーム
         if self.m_strSide.startswith("r"):
             # ゴールすれば
             if self.m_strPlayMode == "(goal_r)":
                 self.reward += 1000
-            # キックできれば
-            if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY) <= 0.7 and \
-                    self.m_strCommand.startswith("(kick"):
-                self.reward += 1
 
         # 左チーム
         if self.m_strSide.startswith("l"):
             # ゴールすれば
             if self.m_strPlayMode == "(goal_l)":
                 self.reward += 1000
-            # キックできれば
-            if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY) <= 0.7 and \
-                    self.m_strCommand.startswith("(kick"):
-                self.reward += 1
 
-        # # ボールが敵陣にあれば
-        # if observation[2] > 20.0:
-        #     self.reward += 1
-        # # ゴールすれば
-        # if self.m_strPlayMode == "(goal_l)":
-        #     self.reward += 100
-        # # ボールの近くにいれば
-        # if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY):
-        #     self.reward += 1
-        # # スタミナをできるだけ高水準に保たせる
-        # if self.m_dStamina < 7000:
-        #     self.reward -= 1
-        # if self.m_dStamina < 5000:
-        #     self.reward -= 3
-        # if self.m_dStamina == 0:
-        #     self.reward -= 50
+        # 共通
+        # ボールをキックできれば
+        if self.getDistance(self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY) <= 0.7 and \
+                self.m_strCommand.startswith("(kick"):
+            self.reward += 1
+        # ==================================================-
+
         self.episode_reward += self.reward
         self.m_strCommand = self.actions[self.action]
 
