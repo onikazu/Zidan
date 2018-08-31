@@ -4,11 +4,18 @@ import time
 
 
 print("start")
+
+# ディレクトリの移動
 os.chdir("../")
 os.chdir("../")
+
+# サーバの起動
 cmd = "rcssserver"
-subprocess.Popen(cmd.split())
+server = subprocess.Popen(cmd.split())
+
 time.sleep(10)
-cmd = "\x03"
-subprocess.call(cmd.split())
+
+# サーバの削除
+server.kill()
+
 print("end")
