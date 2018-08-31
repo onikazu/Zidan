@@ -27,8 +27,8 @@ if __name__ == "__main__":
         # ディレクトリの移動
         os.chdir("./Zidan/src")
 
-        if not os.path.isdir("./numpy"):
-            os.mkdir("./numpy")
+        if not os.path.isdir("./npy"):
+            os.mkdir("./npy")
 
         if not os.path.isdir("./logs"):
             os.mkdir("./logs")
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         # while True:
         #     if zidan2.episode_finish_flag is True:
         #         break
-        time.sleep(8)
+        time.sleep(6.7)
 
 
         print("episode{} is done ".format(episode))
