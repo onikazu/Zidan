@@ -137,7 +137,7 @@ class Zidan2(player11.Player11, threading.Thread):
                 the_file.write("{0},{1}\n".format(self.num_this_episode, self.episode_reward))
 
             # コマンドログの保存
-            with open("./logs/{0}_{1}_reward.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
+            with open("./logs/{0}_{1}_command.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
                 the_file.write("{0},{1},{2},{3}\n".format(self.num_this_episode, self.kick_num, self.turn_num, self.dash_num))
 
             # Qtable の保存
