@@ -10,6 +10,8 @@ import os
 
 from collections import deque
 
+episode_finish_flag = False
+
 class Zidan2(player11.Player11, threading.Thread):
     def __init__(self):
         super(Zidan2, self).__init__()
@@ -133,6 +135,8 @@ class Zidan2(player11.Player11, threading.Thread):
             # Qtable の保存
             np.save("{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber), self.q_table)
             print("episode finish!!!")
+            global episode_finish_flag
+            episode_finish_flag = True
 
     def reset_parameter(self):
         """

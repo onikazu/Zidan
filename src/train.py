@@ -1,6 +1,7 @@
 import subprocess
 import os
 import time
+import zidan2
 
 
 episodes = 100000
@@ -25,7 +26,10 @@ if __name__ == "__main__":
         cmd = "python3 zidan2.py {}".format(episode)
         cliant = subprocess.Popen(cmd.split())
 
-        time.sleep(10)
+        # 学習
+        while True:
+            if zidan2.episode_finish_flag is True:
+                break
 
         print("episode{} is done ".format(episode))
 
