@@ -7,9 +7,15 @@ import zidan2
 episodes = 100000
 
 if __name__ == "__main__":
+    start_episode = 0
+    if os.path.isfile("./logs/Zidan2left_1_reward.log"):
+        with open("./logs/Zidan2left_1_reward.log", "r") as file:
+            lines = file.readlines()
+            last_episode = lines[-1].split()[0]
+            start_episode = last_episode
 
     print("start")
-    for episode in range(episodes):
+    for episode in range(start_episode, episodes):
 
         # ディレクトリの移動
         os.chdir("../")
