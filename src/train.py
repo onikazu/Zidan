@@ -32,7 +32,7 @@ if __name__ == "__main__":
                 "rcssserver server::half_time = -1 server::send_step = 3 server::sense_body_step = 2 server::simulator_step = 2 server::auto_mode = true server::kick_off_wait = 50000"
         else:
             cmd = \
-                "rcssserver server::half_time = -1 server::send_step = 3 server::sense_body_step = 2 server::simulator_step = 2 server::auto_mode = true server::kick_off_wait = 20"
+                "rcssserver server::auto_mode = true server::kick_off_wait = 20"
         server = subprocess.Popen(cmd.split())
 
         # モニタの起動
