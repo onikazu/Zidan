@@ -30,17 +30,9 @@ class Zidan2(player11.Player11, threading.Thread):
         self.situation_num = 6
         # actionについて
         self.action = 0
-        self.actions = ()
-        # アクションコマンド生成
-        for dir in range(-180, 180):
-            self.actions.append("(turn " + str(dir) + ")")
-        for power in range(-100, 100):
-            self.actions.append("(dash " + str(dir) + ")")
-        for power in range(-100, 100):
-            for dir in range(-180, 180):
-                self.actions.append("(kick " + str(power) + " " + str(dir) + ")")
-
+        self.actions = ("(turn 60)", "(turn -60)", "(dash 100)", "(dash -100)", "(kick 100 0)", "(kick 50 0)")
         self.action_num = len(self.actions)
+
         # reward(エピソードごと、ステップごと)
         self.episode_reward = 0
         self.reward = 0
