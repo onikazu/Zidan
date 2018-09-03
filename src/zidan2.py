@@ -11,7 +11,8 @@ import time
 
 from collections import deque
 
-#episode_finish_flag = False
+
+# episode_finish_flag = False
 
 class Zidan2(player11.Player11, threading.Thread):
     def __init__(self):
@@ -27,7 +28,7 @@ class Zidan2(player11.Player11, threading.Thread):
         # =============for reinforcement learning=================
         # situation分割数
         self.num_digitized = 105
-        self.situation_num = 4
+        self.situation_num = 6
         # actionについて
         self.action = 0
         self.actions = ("(turn 60)", "(turn -60)", "(dash 100)", "(dash -100)", "(kick 100 0)", "(kick 50 0)")
@@ -140,7 +141,8 @@ class Zidan2(player11.Player11, threading.Thread):
 
             # コマンドログの保存
             with open("./logs/{0}_{1}_command.log".format(self.m_strTeamName, self.m_iNumber), "a") as the_file:
-                the_file.write("{0},{1},{2},{3}\n".format(self.num_this_episode, self.kick_num, self.turn_num, self.dash_num))
+                the_file.write(
+                    "{0},{1},{2},{3}\n".format(self.num_this_episode, self.kick_num, self.turn_num, self.dash_num))
 
             # Qtable の保存
             np.save("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber), self.q_table)
@@ -149,7 +151,7 @@ class Zidan2(player11.Player11, threading.Thread):
     def learn_and_play(self):
         # a_t実行によるs_t+1
         t = self.m_iTime
-        observation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY)
+        observation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY, self.m_dNeck, self.m_dStamina)
         if self.m_iNumber == 10:
             if t % 30 == 0:
                 print("obsertvation:", observation)
@@ -187,7 +189,7 @@ class Zidan2(player11.Player11, threading.Thread):
 
     def initalize_and_learn(self):
         t = self.m_iTime
-        obserbvation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY)
+        obserbvation = (self.m_dX, self.m_dY, self.m_dBallX, self.m_dBallY, self.m_dNeck, self.m_dStamina)
         self.state = self.digitize_state(obserbvation)
         self.action = np.argmax(self.q_table[self.state])
         # 開始直後でなければ学習
@@ -211,6 +213,8 @@ class Zidan2(player11.Player11, threading.Thread):
             np.digitize(dY, bins=self.bins(-34.0, 34.0, self.num_digitized)),  # dY
             np.digitize(dBallX, bins=self.bins(-52.5, 52.5, self.num_digitized)),  # dBallX
             np.digitize(dBallY, bins=self.bins(-34.0, 34.0, self.num_digitized)),  # dBallY
+            np.digitize(dNeck, bins=self.bins(-90.0, 90.0, self.num_digitized)),  # dNeck
+            np.digitize(dStamina, bins=self.bins(0, 8000, self.num_digitized)),  # dStamina
         ]
 
         # リスト内包表記
