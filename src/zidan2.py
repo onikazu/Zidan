@@ -26,7 +26,7 @@ class Zidan2(player11.Player11, threading.Thread):
 
         # =============for reinforcement learning=================
         # situation分割数
-        self.num_digitized = 6
+        self.num_digitized = 105
         self.situation_num = 6
         # actionについて
         self.action = 0
@@ -261,7 +261,6 @@ if __name__ == "__main__":
 # self.m_dBallY
 #
 # 行動a一覧
-# (turn 0)
 # (turn 60)
 # (turn -60)
 # (dash 100)
