@@ -26,7 +26,7 @@ class Zidan2(player11.Player11, threading.Thread):
 
         # =============for reinforcement learning=================
         # situation分割数
-        self.num_digitized = 105
+        self.num_digitized = 6
         self.situation_num = 6
         # actionについて
         self.action = 0
@@ -46,11 +46,12 @@ class Zidan2(player11.Player11, threading.Thread):
         # この報酬を超えると学習終了（中心への制御なし）
         self.goal_average_reward = 600
         # Qテーブルの作成
-        # 初期のエピソードでなければ引き継ぎ行う
-        self.q_table = np.random.uniform(low=-1, high=1,
-                                         size=(self.num_digitized ** self.situation_num, self.action_num))
         if os.path.isfile("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber)):
             self.q_table = np.load("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber))
+        else:
+            # 初期のエピソードでなければ引き継ぎ行う
+            self.q_table = np.random.uniform(low=-1, high=1,
+                                             size=(self.num_digitized ** self.situation_num, self.action_num))
         # 各試行の報酬を格納するベクトル（当然初期値は０で長さは評価数分）
         self.total_reward_vec = np.zeros(self.num_consecutive_iterations)
 
