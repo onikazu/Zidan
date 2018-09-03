@@ -27,12 +27,12 @@ if __name__ == "__main__":
 
         # サーバの起動
         if is_first_episode:
-            cmd = \
-                "rcssserver server::half_time = -1 server::send_step = 3 server::sense_body_step = 2 server::simulator_step = 2 server::auto_mode = true server::kick_off_wait = 20"
-        else:
             # 初期テーブル作成のために時間余分に取っておく
             cmd = \
                 "rcssserver server::half_time = -1 server::send_step = 3 server::sense_body_step = 2 server::simulator_step = 2 server::auto_mode = true server::kick_off_wait = 50000"
+        else:
+            cmd = \
+                "rcssserver server::half_time = -1 server::send_step = 3 server::sense_body_step = 2 server::simulator_step = 2 server::auto_mode = true server::kick_off_wait = 20"
         server = subprocess.Popen(cmd.split())
 
         # モニタの起動
