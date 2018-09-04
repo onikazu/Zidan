@@ -1,10 +1,9 @@
 import subprocess
 import os
 import time
-import zidan2
-
 
 episodes = 100000
+exe_program = "zidan3.py"
 
 if __name__ == "__main__":
     start_episode = 0
@@ -40,7 +39,7 @@ if __name__ == "__main__":
             os.mkdir("./logs")
 
         # クライアントプログラムの実行
-        cmd = "python3 zidan2.py {}".format(episode)
+        cmd = "python3 {} {}".format(exe_program, episode)
         cliant = subprocess.Popen(cmd.split())
 
         # 学習
