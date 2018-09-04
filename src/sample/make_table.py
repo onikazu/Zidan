@@ -3,7 +3,7 @@ import time
 
 print("start")
 start = time.time()
-q_table = np.random.uniform(low=-1, high=1, size=(6 ** 10, 6))
+q_table = np.random.uniform(low=-1, high=1, size=(6 ** 50, 6))
 elapse = time.time() - start
 print("end")
 print(elapse)
