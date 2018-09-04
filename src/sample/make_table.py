@@ -4,7 +4,7 @@ import time
 print("start")
 start = time.time()
 q_table = np.random.uniform(low=-1, high=1, size=(6 ** 6, 6))
-print(type(q_table))
+print(q_table.dtype)
 elapse = time.time() - start
 print("end")
 print(elapse)
