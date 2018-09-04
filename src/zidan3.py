@@ -50,7 +50,7 @@ class Zidan2(player11.Player11, threading.Thread):
         if os.path.isfile("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber)):
             self.q_table = np.load("./npy/{0}_{1}_result_table.npy".format(self.m_strTeamName, self.m_iNumber))
         else:
-            # 初期のエピソードでなければ引き継ぎ行う。ここのsizeが大きいとエラーに。。。
+            # 初期のエピソードならテーブル作成、ここのsizeが大きいとエラーに。。。
             self.q_table = np.random.uniform(low=-1, high=1,
                                              size=(self.num_digitized ** self.situation_num, self.action_num))
         # 各試行の報酬を格納するベクトル（当然初期値は０で長さは評価数分）

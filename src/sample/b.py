@@ -1,5 +1,5 @@
 import subprocess
-import a
+from sample import a
 
 if __name__ == "__main__":
     cmd = "python3 a.py"
